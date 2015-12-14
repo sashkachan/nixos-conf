@@ -37,6 +37,7 @@
 			gcc
 			man
 			openvpn
+			xlaunch
 			tcpdump
 			unzip
 			xlibs.xev
@@ -45,6 +46,7 @@
 			xlibs.xmodmap
 
 			wget
+			gnumake
 			dmenu
 			emacs
 			zsh  
@@ -70,8 +72,9 @@
 			i3status
 			i3lock
 			];
-
-# List services that you want to enable:
+	security.setuidPrograms = [
+    	"xlaunch"
+  	];
 
 # Enable the OpenSSH daemon.
 	services.openssh.enable = true;
@@ -87,12 +90,11 @@
 	services.xserver.exportConfiguration = true;
 
 	services.xserver.desktopManager.gnome3.enable = true;
+	services.xserver.desktopManager.xterm.enable = false;
 	services.xserver.displayManager.sddm.enable = true;
 	services.xserver.windowManager.i3.enable = true;
 	services.xserver.windowManager.default = "i3";
 	services.tlp.enable = true;
-	services.xserver.windowManager.i3.configFile = "/home/alg/.config/i3";
-
 	programs.zsh.enable = true;
 
 	hardware = {
