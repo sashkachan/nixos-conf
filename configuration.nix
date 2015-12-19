@@ -114,7 +114,7 @@
 
   	system.activationScripts =
   	{
-    		dotfiles = stringAfter [ "users" ]
+    		dotfiles = lib.stringAfter [ "users" ]
     		''
       		cd /home/alg
 		rm -rf dotfiles
