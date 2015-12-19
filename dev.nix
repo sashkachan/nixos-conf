@@ -1,13 +1,9 @@
+{config, pkgs, lib, ...}:
 {
-  packageOverrides = pkgs_: with pkgs_; {
-    all = with pkgs; buildEnv {
-      name = "all";
-      paths = [
-	jdk8-linux
-	phpstorm
-	idea-community
-	go
-      ];
-    };
-  };
+  environment.systemPackages = with pkgs; [
+        jdk8
+        idea.phpstorm
+        idea.idea-community
+        go
+  ];
 }

@@ -8,6 +8,7 @@
 	imports =
 		[ # Include the results of the hardware scan.
 			./hardware-configuration.nix
+			./dev.nix
 			./emacs.nix
 		];
 
@@ -116,6 +117,24 @@
 		extraGroups = [ "wheel" "docker" ];
 		shell = "/run/current-system/sw/bin/zsh";
 	};
+
+  system.activationScripts =
+  {
+    # Configure various dotfiles.
+    dotfiles = stringAfter [ "users" ]
+    ''
+      cd /home/auntieneo
+      git clone https://github.com/alex-glv/dotfiles.git
+      cd dotfiles
+      make
+    '';
+
+# FIXME: wpa_supplicant expects the wpa_supplicant.conf file to be in a read/write filesystem. This is a problem.
+#    # Configure wireless networks
+#    wpa_supplicant = ''  # FIXME: does this name have potential for conflict? must investigate
+#      ln -fs ${./private/etc/wpa_supplicant.conf} /etc/wpa_supplicant.conf
+#    '';
+  };
 
 # The NixOS release to be compatible with for stateful data such as 
 # databases.
