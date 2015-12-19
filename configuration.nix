@@ -116,10 +116,11 @@
   	{
     		dotfiles = stringAfter [ "users" ]
     		''
-      		cd /home/alge
-      		git clone https://github.com/alex-glv/dotfiles.git
+      		cd /home/alg
+		rm -rf dotfiles
+      		${pkgs.git}/bin/git clone https://github.com/alex-glv/dotfiles.git
       		cd dotfiles
-      		make
+      		${pkgs.gnumake}/bin/make GIT='${pkgs.git}/bin/git' all
     		'';
 
   	};
