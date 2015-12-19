@@ -51,6 +51,7 @@
 
 		wget
 		gnumake
+		gnused
 		dmenu
 		emacs
 		zsh  
@@ -118,9 +119,11 @@
     		''
       		cd /home/alg
 		rm -rf dotfiles
-      		${pkgs.git}/bin/git clone https://github.com/alex-glv/dotfiles.git
       		cd dotfiles
+		export PATH=${pkgs.gnused}/bin:$PATH
+      		${pkgs.git}/bin/git clone https://github.com/alex-glv/dotfiles.git
       		${pkgs.gnumake}/bin/make GIT='${pkgs.git}/bin/git' all
+		chown -R alg:alg /home/alg/
     		'';
 
   	};
