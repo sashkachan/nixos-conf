@@ -19,6 +19,7 @@
 	networking.useDHCP = true;
 	system.stateVersion = "15.09";
 
+	powerManagement.enable = true;
 	virtualisation.docker.enable = true;
 	virtualisation.docker.socketActivation = false;
 
@@ -49,6 +50,7 @@
 		xlibs.xmessage
 		xlibs.xmodmap
 
+		bluez5
 		wget
 		gnumake
 		gnused
@@ -73,26 +75,55 @@
 		nettools
 		i3status
 		i3lock
+		xss-lock
+		feh
 	];
 	security.setuidPrograms = [
     	"xlaunch"
   	];
 
-	services.openssh.enable = true;
-
-	services.xserver.enable = true;
-	services.xserver.layout = "us";
-	services.xserver.xkbVariant = "dvp";
-	services.xserver.xkbOptions = "ctrl:nocaps";
-	services.xserver.exportConfiguration = true;
-
-	services.xserver.desktopManager.gnome3.enable = true;
-	services.xserver.desktopManager.xterm.enable = false;
-	services.xserver.displayManager.sddm.enable = true;
-	services.xserver.windowManager.i3.enable = true;
-	services.xserver.windowManager.default = "i3";
-	services.tlp.enable = true;
-	programs.zsh.enable = true;
+	services = {
+		openssh = {
+			enable = true;
+		};
+		tlp = {
+			enable = true;
+		};
+		xserver = {
+			enable = true;
+			layout = "us";
+			xkbVariant = "dvp";
+			xkbOptions = "ctrl:nocaps";
+			exportConfiguration = true;
+			desktopManager = {
+				gnome3 = {
+					enable = true;
+				};
+				xterm = {
+					enable = false;
+				};
+			};
+			displayManager = {
+				sddm = {
+					enable = true;
+				};
+			};
+			windowManager = {
+				i3 = {
+					enable = true;
+				};
+				default = "i3";
+			};
+		};
+	};
+	programs = {
+		zsh = {
+			enable = true;
+		};
+		light = {
+			enable = true;
+		};
+	};
 
 	hardware = {
 		trackpoint = {
@@ -101,6 +132,14 @@
 			sensitivity = 255;
 			emulateWheel = true;
 		};
+		pulseaudio = {
+			enable = true;
+			package = pkgs.pulseaudioFull;
+		};
+		bluetooth = {
+			enable = true;
+		};
+		
 	};
 
 
@@ -109,22 +148,22 @@
 		uid = 1000;
 		useDefaultShell = false;
 		initialPassword = "test";
-		extraGroups = [ "wheel" "docker" ];
+		extraGroups = [ "wheel" "docker" "alg" ];
 		shell = "/run/current-system/sw/bin/zsh";
 	};
 
-  	system.activationScripts =
-  	{
-    		dotfiles = lib.stringAfter [ "users" ]
-    		''
-      		cd /home/alg
-		rm -rf dotfiles
-      		cd dotfiles
-		export PATH=${pkgs.gnused}/bin:$PATH
-      		${pkgs.git}/bin/git clone https://github.com/alex-glv/dotfiles.git
-      		${pkgs.gnumake}/bin/make GIT='${pkgs.git}/bin/git' all
-		chown -R alg:alg /home/alg/
-    		'';
+  	#system.activationScripts =
+  	#{
+    	#	dotfiles = lib.stringAfter [ "users" ]
+    	#	''
+      	#	cd /home/alg
+	#	rm -rf dotfiles
+      	#	cd dotfiles
+	#	export PATH=${pkgs.gnused}/bin:$PATH
+      	#	${pkgs.git}/bin/git clone https://github.com/alex-glv/dotfiles.git
+      	#	${pkgs.gnumake}/bin/make GIT='${pkgs.git}/bin/git' all
+	#	chown -R alg:alg /home/alg/
+    	#	'';
 
-  	};
+  	#};
 }

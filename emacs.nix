@@ -21,5 +21,5 @@
   wantedBy = [ "default.target" ];
   };
  
-  systemd.services.emacs.enable = true;
-}
+  systemd.user.services.emacs.enable = true;
+  }
