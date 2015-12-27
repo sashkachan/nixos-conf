@@ -15,13 +15,19 @@
 	boot.loader.gummiboot.enable = true;
 	networking.hostName = "alnix";
 	networking.wireless.enable = true;
+	networking.wireless.userControlled.enable = true;
+	networking.wireless.interfaces = ["wlp3s0"];
+	networking.wireless.driver = "nl80211";
 	networking.networkmanager.enable = false;
 	networking.useDHCP = true;
 	system.stateVersion = "15.09";
-
 	powerManagement.enable = true;
-	virtualisation.docker.enable = true;
-	virtualisation.docker.socketActivation = false;
+
+	virtualisation = {
+		docker.enable = true;
+		docker.socketActivation = false;
+		virtualbox.host.enable = true;
+	};
 
 	boot.kernelPackages = pkgs.linuxPackages_4_3;
 
@@ -77,6 +83,9 @@
 		i3lock
 		xss-lock
 		feh
+
+		bind
+		calibre
 	];
 	security.setuidPrograms = [
     	"xlaunch"
@@ -115,6 +124,13 @@
 				default = "i3";
 			};
 		};
+		redshift = {
+				enable = true;
+				latitude = "52.21";
+				longitude = "4.55";
+				temperature.day = 6000;
+				temperature.night = 3700;
+		};
 	};
 	programs = {
 		zsh = {
@@ -151,6 +167,14 @@
 		extraGroups = [ "wheel" "docker" "alg" ];
 		shell = "/run/current-system/sw/bin/zsh";
 	};
+
+
+	nixpkgs.config.chromium = {
+		enablePepperFlash = true;
+		enablePepperPDF = true;
+		enableWideVine = true;
+	};
+	
 
   	#system.activationScripts =
   	#{
