@@ -92,12 +92,10 @@
   	];
 
 	services = {
-		openssh = {
-			enable = true;
-		};
-		tlp = {
-			enable = true;
-		};
+		nfs = { enable = true; };
+		openssh = { enable = true; };
+		tlp = { enable = true; };
+
 		xserver = {
 			enable = true;
 			layout = "us";
@@ -131,6 +129,10 @@
 				temperature.day = 6000;
 				temperature.night = 3700;
 		};
+		transmission = {
+				enable = true;
+		};
+
 	};
 	programs = {
 		zsh = {
