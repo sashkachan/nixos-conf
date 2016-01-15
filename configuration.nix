@@ -20,6 +20,7 @@
 	networking.wireless.driver = "nl80211";
 	networking.networkmanager.enable = false;
 	networking.useDHCP = true;
+	networking.enableIPv6 = false;
 	system.stateVersion = "15.09";
 	powerManagement.enable = true;
 
@@ -77,7 +78,6 @@
 		vagrant
 		spotify
 		chromium
-		tlp
 		nettools
 		i3status
 		i3lock
@@ -86,15 +86,16 @@
 
 		bind
 		calibre
+		rxvt
 	];
 	security.setuidPrograms = [
     	"xlaunch"
   	];
 
 	services = {
-		nfs = { enable = true; };
-		openssh = { enable = true; };
-		tlp = { enable = true; };
+		nfs.server.enable = true;
+		openssh.enable = true;
+		tlp.enable = true;
 
 		xserver = {
 			enable = true;
@@ -103,23 +104,18 @@
 			xkbOptions = "ctrl:nocaps";
 			exportConfiguration = true;
 			desktopManager = {
-				gnome3 = {
-					enable = true;
-				};
-				xterm = {
-					enable = false;
-				};
+				gnome3.enable = false;
+				xterm.enable = false;
 			};
 			displayManager = {
-				sddm = {
-					enable = true;
-				};
+				sddm.enable = true;
 			};
 			windowManager = {
-				i3 = {
-					enable = true;
-				};
+				i3.enable = true;
 				default = "i3";
+			};
+			synaptics = {
+				enable = true;
 			};
 		};
 		redshift = {
@@ -176,7 +172,13 @@
 		enablePepperPDF = true;
 		enableWideVine = true;
 	};
-	
+	fonts = {
+		enableFontDir = true;
+		enableGhostscriptFonts = true;
+		fonts = with pkgs; [
+			inconsolata
+		];
+	};
 
   	#system.activationScripts =
   	#{

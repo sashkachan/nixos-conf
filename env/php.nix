@@ -1,10 +1,9 @@
-with import <nixpkgs> {}; {
-	javaEnv = stdenv.mkDerivation {
-		name = "java-env";
+with import <forkpkgs> {}; {
+	phpEnv = stdenv.mkDerivation {
+		name = "php-env";
 		JAVA_HOME = "${jdk8}";
 		buildInputs = [
 			idea.phpstorm
-			jdk8
 			git 
 		];
 	};
