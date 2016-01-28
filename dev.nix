@@ -1,9 +1,10 @@
-{config, pkgs, lib, ...}:
+{config, pkgs, lib, stdenv, ...}:
 {
-  environment.systemPackages = with pkgs; [
-#        jdk8
-#        idea.phpstorm
-#        idea.idea-community
-        go
-  ];
+	nixpkgs.config.packageOverrides = pkgs: {
+		docker = pkgs.lib.overrideDerivation pkgs.docker (attrs : import ./env/docker191.nix {pkgs = pkgs;} );
+	};
+	environment.systemPackages = with pkgs;  [
+		go
+		docker
+ 	];
 }

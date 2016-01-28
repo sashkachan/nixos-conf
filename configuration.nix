@@ -26,7 +26,7 @@
 
 	virtualisation = {
 		docker.enable = true;
-		docker.socketActivation = false;
+		#docker.socketActivation = false;
 		virtualbox.host.enable = true;
 	};
 
@@ -56,7 +56,6 @@
 		xlibs.xinput
 		xlibs.xmessage
 		xlibs.xmodmap
-
 		bluez5
 		wget
 		gnumake
@@ -66,26 +65,21 @@
 		zsh  
 		curl
 		xclip
-		tmux
 		htop
 		zsh
-		dropbox
+		#dropbox
+		#chromium
 		mesa
 		ffmpeg
 		vim
-		docker
 		git
 		vagrant
-		spotify
-		chromium
 		nettools
 		i3status
 		i3lock
 		xss-lock
 		feh
-
 		bind
-		calibre
 		rxvt
 	];
 	security.setuidPrograms = [
@@ -115,8 +109,11 @@
 				default = "i3";
 			};
 			synaptics = {
-				enable = true;
+				enable = false;
 			};
+			#multitouch = {
+			#	enable = true;
+			#};
 		};
 		redshift = {
 				enable = true;
@@ -169,6 +166,8 @@
 
 	nixpkgs.config.chromium = {
 		enablePepperFlash = true;
+		enableJava = true;
+		enableJdk = true;
 		enablePepperPDF = true;
 		enableWideVine = true;
 	};

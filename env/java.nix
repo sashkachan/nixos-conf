@@ -1,13 +1,10 @@
-with import <nixpkgs> {}; {
+with import <forkpkgs> {}; {
 	javaEnv = stdenv.mkDerivation {
 		name = "java-env";
-		JAVA_HOME = "${jdk8}";
-		shellHook = ''
-			alias gradle="${jdk8}/bin/java -classpath ${gradle}/lib/gradle/lib/gradle-launcher*.jar org.gradle.launcher.GradleMain ";
-		'';
+		JAVA_HOME = "${jdk}";
 		buildInputs = [
 			idea.idea-community
-			jdk8
+			jdk
 			gradle
 			git 
 		];
