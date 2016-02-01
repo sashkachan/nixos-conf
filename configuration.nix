@@ -8,7 +8,7 @@
 	imports =
 		[ # Include the results of the hardware scan.
 			./hardware-configuration.nix
-			./dev.nix
+			./desktop.nix
 			./emacs.nix
 		];
 
@@ -31,7 +31,7 @@
 	};
 
 	boot.kernelPackages = pkgs.linuxPackages_4_3;
-
+	boot.initrd.kernelModules = ["acpi" "acpi_call"];
 	i18n = {
 		consoleFont = "Lat2-Terminus16";
 		consoleKeyMap = "dvorak";
@@ -67,8 +67,6 @@
 		xclip
 		htop
 		zsh
-		#dropbox
-		#chromium
 		mesa
 		ffmpeg
 		vim
@@ -178,6 +176,7 @@
 			inconsolata
 		];
 	};
+	nix.trustedBinaryCaches = [ https://hydra.nixos.org ];
 
   	#system.activationScripts =
   	#{
