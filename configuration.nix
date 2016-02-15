@@ -132,6 +132,7 @@
 		light = {
 			enable = true;
 		};
+		ssh.startAgent = true;
 	};
 
 	hardware = {
