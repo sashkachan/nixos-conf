@@ -39,7 +39,6 @@
 	};
 
 	time.timeZone = "Europe/Amsterdam";
-	nixpkgs.config.allowUnfree = true;
 
 	environment.systemPackages = with pkgs; [
 		alsaLib
@@ -162,13 +161,8 @@
 	};
 
 
-	nixpkgs.config.chromium = {
-		enablePepperFlash = true;
-		enableJava = true;
-		enableJdk = true;
-		enablePepperPDF = true;
-		enableWideVine = true;
-	};
+	nixpkgs.config.allowUnfree = true;
+	
 	fonts = {
 		enableFontDir = true;
 		enableGhostscriptFonts = true;

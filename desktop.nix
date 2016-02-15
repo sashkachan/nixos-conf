@@ -1,26 +1,29 @@
-{config, pkgs, lib, stdenv, ...}:
-let forkpkgs = import ./nixpkgs {};
-in 
+{config, pkgs, ...}:
 {
 	nixpkgs.config.packageOverrides = {
-		docker = forkpkgs.docker;	
-		#go = forkpkgs.go_1_5;
-		#vlc = forkpkgs.vlc;
-		#chromium = forkpkgs.chromium;
-		#spotify = forkpkgs.spotify;
-		#dropbox = forkpkgs.dropbox;
-		#tmux = forkpkgs.tmux;
-		#redshift = forkpkgs.redshift;
-		
+		docker = pkgs.callPackage ./nixpkgs/pkgs/applications/virtualization/docker {};
+		chromium = pkgs.callPackage ./nixpkgs/pkgs/applications/networking/browsers/chromium {
+			pulseSupport = true;
+			enableWideVine = true;
+		};
+		openssl_1_0_1 = pkgs.openssl;
+		GConf = pkgs.gnome.GConf;
+		btrfs-progs = pkgs.callPackage ./nixpkgs/pkgs/tools/filesystems/btrfs-progs { };
+		tmux = pkgs.callPackage ./nixpkgs/pkgs/tools/misc/tmux {};
+		spotify = pkgs.callPackage ./nixpkgs/pkgs/applications/audio/spotify {};
+		redshift = pkgs.callPackage ./nixpkgs/pkgs/applications/misc/redshift {
+			pyxdg = pkgs.python3Packages.pyxdg;
+		};
 	};
 	environment.systemPackages = with pkgs;  [
+		btrfs-progs
 		go
 		docker
-		#calibre
-		#chromium
-		#tmux
-		#vlc
-		#dropbox
-		#redshift
+		tmux
+		vlc
+		chromium
+		dropbox
+		spotify
+		redshift
  	];
 }
