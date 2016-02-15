@@ -31,7 +31,7 @@
 	};
 
 	boot.kernelPackages = pkgs.linuxPackages_4_3;
-	boot.initrd.kernelModules = ["acpi" "acpi_call"];
+	boot.initrd.kernelModules = ["acpi" "snd-seq" "snd-rawmidi"];
 	i18n = {
 		consoleFont = "Lat2-Terminus16";
 		consoleKeyMap = "dvorak";
@@ -41,9 +41,7 @@
 	time.timeZone = "Europe/Amsterdam";
 
 	environment.systemPackages = with pkgs; [
-		alsaLib
-		alsaPlugins
-		alsaUtils
+		gtk
 		gdb
 		gcc
 		man
@@ -55,7 +53,7 @@
 		xlibs.xinput
 		xlibs.xmessage
 		xlibs.xmodmap
-		bluez5
+		#bluez5
 		wget
 		gnumake
 		gnused
@@ -73,6 +71,7 @@
 		vagrant
 		nettools
 		i3status
+		pavucontrol
 		i3lock
 		xss-lock
 		feh
@@ -95,11 +94,13 @@
 			xkbOptions = "ctrl:nocaps";
 			exportConfiguration = true;
 			desktopManager = {
-				gnome3.enable = false;
+				#gnome3.enable = true;
 				xterm.enable = false;
 			};
 			displayManager = {
-				sddm.enable = true;
+				#sddm.enable = true;
+				#gdm.enable = true;
+				lightdm.enable = true;
 			};
 			windowManager = {
 				i3.enable = true;
@@ -145,7 +146,7 @@
 			package = pkgs.pulseaudioFull;
 		};
 		bluetooth = {
-			enable = true;
+			enable = false;
 		};
 		
 	};
