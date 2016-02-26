@@ -31,7 +31,10 @@
 	};
 
 	boot.kernelPackages = pkgs.linuxPackages_4_3;
-	boot.initrd.kernelModules = ["acpi" "snd-seq" "snd-rawmidi"];
+	boot.initrd.kernelModules = ["acpi" "tp-smapi"];
+  	boot.extraModulePackages = [
+      		config.boot.kernelPackages.tp_smapi
+  	];
 	i18n = {
 		consoleFont = "Lat2-Terminus16";
 		consoleKeyMap = "dvorak";
@@ -53,7 +56,7 @@
 		xlibs.xinput
 		xlibs.xmessage
 		xlibs.xmodmap
-		#bluez5
+		bluez
 		wget
 		gnumake
 		gnused
@@ -77,6 +80,7 @@
 		feh
 		bind
 		rxvt
+		pythonPackages.udiskie
 	];
 	security.setuidPrograms = [
     	"xlaunch"
@@ -107,7 +111,8 @@
 				default = "i3";
 			};
 			synaptics = {
-				enable = false;
+				dev = "/dev/input/event*";
+				enable = true;
 			};
 			#multitouch = {
 			#	enable = true;
@@ -123,6 +128,7 @@
 		transmission = {
 				enable = true;
 		};
+		udisks2 = { enable = true; };
 
 	};
 	programs = {
@@ -147,10 +153,14 @@
 			package = pkgs.pulseaudioFull;
 		};
 		bluetooth = {
-			enable = false;
+			enable = true;
 		};
+  		enableAllFirmware = true;
 		
 	};
+	nixpkgs.config.packageOverrides = pkgs: {
+ 		bluez = pkgs.bluez5;
+ 	};
 
 
 	users.extraUsers.alg = {
@@ -174,6 +184,9 @@
 	};
 	nix.trustedBinaryCaches = [ https://hydra.nixos.org ];
 
+  	nix.extraOptions = ''
+	    build-cores = 4
+ 	'';
   	#system.activationScripts =
   	#{
     	#	dotfiles = lib.stringAfter [ "users" ]
