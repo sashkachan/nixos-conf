@@ -31,9 +31,8 @@
 	};
 
 	boot.kernelPackages = pkgs.linuxPackages_4_3;
-	boot.initrd.kernelModules = ["acpi" "tp-smapi"];
+	boot.initrd.kernelModules = ["acpi" "thinkpad-acpi" "acpi-call"];
   	boot.extraModulePackages = [
-      		config.boot.kernelPackages.tp_smapi
   	];
 	i18n = {
 		consoleFont = "Lat2-Terminus16";
@@ -80,7 +79,15 @@
 		feh
 		bind
 		rxvt
+      		gnome.gnomeicontheme # more icons
+      		hicolor_icon_theme   # icons for thunar
 		pythonPackages.udiskie
+		python3
+		cryptsetup
+		lxappearance
+		gnome_themes_standard
+		numix-gtk-theme
+		audacious
 	];
 	security.setuidPrograms = [
     	"xlaunch"
@@ -112,7 +119,7 @@
 			};
 			synaptics = {
 				dev = "/dev/input/event*";
-				enable = true;
+			#	enable = true;
 			};
 			#multitouch = {
 			#	enable = true;
@@ -168,8 +175,8 @@
 		uid = 1000;
 		useDefaultShell = false;
 		initialPassword = "test";
-		extraGroups = [ "wheel" "docker" "alg" ];
-		shell = "/run/current-system/sw/bin/zsh";
+		extraGroups = [ "wheel" "docker" "alg" "transmission" ];
+		#shell = "/run/current-system/sw/bin/zsh";
 	};
 
 
@@ -182,6 +189,8 @@
 			inconsolata
 		];
 	};
+	services.logind.extraConfig = "IdleActionSec=9000000";
+
 	nix.trustedBinaryCaches = [ https://hydra.nixos.org ];
 
   	nix.extraOptions = ''

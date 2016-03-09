@@ -11,8 +11,8 @@
    NIX_PROFILES = "${pkgs.lib.concatStringsSep ":" config.environment.profiles}"; 
    TERMINFO_DIRS = "/run/current-system/sw/share/terminfo";
    ASPELL_CONF = "dict-dir /run/current-system/sw/lib/aspell";
-   GOPATH = "/home/alg/.go";
-   GOBIN = "/home/alg/.go/bin";
+   #GOPATH = "/home/alg/.go";
+   #GOBIN = "/home/alg/.go/bin";
    };
    serviceConfig = {
     Type = "forking";
