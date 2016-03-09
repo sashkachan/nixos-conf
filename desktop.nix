@@ -30,6 +30,7 @@
 		gocode
 		docker
 		idea.phpstorm
+		idea.idea-community
 		tmux
 		vlc
 		kismet

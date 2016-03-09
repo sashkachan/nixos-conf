@@ -7,7 +7,7 @@
 {
 	imports =
 		[ # Include the results of the hardware scan.
-			./hardware-configuration.nix
+			../hardware-configuration.nix
 			./desktop.nix
 			./emacs.nix
 		];
@@ -79,6 +79,7 @@
 		feh
 		bind
 		rxvt
+		rxvt_unicode
       		gnome.gnomeicontheme # more icons
       		hicolor_icon_theme   # icons for thunar
 		pythonPackages.udiskie
@@ -176,7 +177,7 @@
 		useDefaultShell = false;
 		initialPassword = "test";
 		extraGroups = [ "wheel" "docker" "alg" "transmission" ];
-		#shell = "/run/current-system/sw/bin/zsh";
+		shell = "/run/current-system/sw/bin/zsh";
 	};
 
 
