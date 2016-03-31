@@ -1,32 +1,32 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, lib, pkgs, ... }:
 
 {
 	imports =
 		[ # Include the results of the hardware scan.
-			./hardware-configuration.nix
+			../hardware-configuration.nix
 			./desktop.nix
 			./emacs.nix
 		];
 
 	boot.loader.gummiboot.enable = true;
-	networking.hostName = "alnix";
-	networking.wireless.enable = true;
-	networking.wireless.userControlled.enable = true;
-	networking.wireless.interfaces = ["wlp3s0"];
-	networking.wireless.driver = "nl80211";
-	networking.networkmanager.enable = false;
-	networking.useDHCP = true;
-	networking.enableIPv6 = false;
+	networking = {
+		hostName = "alnix";
+		wireless.enable = false;
+		#wireless.interfaces = ["wlp3s0"];
+		#wireless.driver = "nl80211";
+		#wireless.userControlled.enable = true;
+		wicd.enable = true;	
+		useDHCP = false;
+		enableIPv6 = false;
+		networkmanager.enable = false;
+		
+	};
 	system.stateVersion = "15.09";
 	powerManagement.enable = true;
 
 	virtualisation = {
 		docker.enable = true;
-		#docker.socketActivation = false;
+		docker.socketActivation = false;
 		virtualbox.host.enable = true;
 	};
 
@@ -79,6 +79,7 @@
 		feh
 		bind
 		rxvt
+		rxvt_unicode
       		gnome.gnomeicontheme # more icons
       		hicolor_icon_theme   # icons for thunar
 		pythonPackages.udiskie
@@ -88,6 +89,8 @@
 		gnome_themes_standard
 		numix-gtk-theme
 		audacious
+		compton
+		#wicd-gtk
 	];
 	security.setuidPrograms = [
     	"xlaunch"
@@ -117,13 +120,6 @@
 				i3.enable = true;
 				default = "i3";
 			};
-			synaptics = {
-				dev = "/dev/input/event*";
-			#	enable = true;
-			};
-			#multitouch = {
-			#	enable = true;
-			#};
 		};
 		redshift = {
 				enable = true;
@@ -139,9 +135,9 @@
 
 	};
 	programs = {
-		zsh = {
-			enable = true;
-		};
+		#zsh ={
+	        #	enable = true;
+		#};
 		light = {
 			enable = true;
 		};
@@ -176,7 +172,8 @@
 		useDefaultShell = false;
 		initialPassword = "test";
 		extraGroups = [ "wheel" "docker" "alg" "transmission" ];
-		shell = "/run/current-system/sw/bin/zsh";
+		shell = "/run/current-system/sw/bin/bash";
+
 	};
 
 
