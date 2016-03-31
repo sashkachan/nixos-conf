@@ -176,7 +176,7 @@
 		useDefaultShell = false;
 		initialPassword = "test";
 		extraGroups = [ "wheel" "docker" "alg" "transmission" ];
-		#shell = "/run/current-system/sw/bin/zsh";
+		shell = "/run/current-system/sw/bin/zsh";
 	};
 
 
